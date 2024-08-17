@@ -5,24 +5,24 @@ This is my realisation of PriorityQueue for Clevertec course. This Repository co
 
 ## About Project
 
-* A class with poll() peek() add() getSize() getLength() methods.
+* A class with `poll()` `peek()` `add()` `getSize()` `getLength()` methods.
 * Works with Comparator and Comparable interfaces.
-* Uses Generics so can hold any Type.
-* Stores elements at the array.
-* Binary Heap logic : min element at the top by default.
-* Own implementation of siftUp and siftDown procedures.
-* Initial capacity is 8 : enlarges automatically.
-* Contains base Unit test to check functionality.
+* Uses `Generics` so can hold any Type.
+* Stores elements at the `array`.
+* `Binary Heap logic` : min element at the top by default.
+* Own implementation of `siftUp` and `siftDown` procedures.
+* `Initial capacity is 8` : enlarges automatically.
+* Contains base `Unit tests` to check functionality.
 
 ## Getting Started with Initialization
 
-1. This code will create CustomPriorityQueue with reversed Comparator.
+1. This code will create CustomPriorityQueue with `reversed Comparator`.
 
 ```
 CustomPriorityQueue<Integer> q = new CustomPriorityQueue<>(Integer.class, Comparator.reverseOrder());
 ```
 
-2. This code will create CustomPriorityQueue with Class which implemented Comparable Interface.
+2. This code will create CustomPriorityQueue with Class which implemented `Comparable Interface`.
 
 ```
 public class YourClassNameHere implements Comparable<YourClassNameHere>{
@@ -40,7 +40,7 @@ CustomPriorityQueue<YourClassNameHere> q = new CustomPriorityQueue<>(YourClassNa
 
 Queue will compare your type with the logic, which you specified with Comparable <u> instead of using Comparator. </u>
 
-<a id ="exception-id">3.</a> Following code will throw ClassCastException, because you should always specify Comparator or Comparable with your custom types.
+<a id ="exception-id">3.</a> Following code will throw `ClassCastException`, because you should always specify Comparator or Comparable with your custom types.
 
 ```
 CustomPriorityQueue<NonComarableClass> q = new CustomPriorityQueue<>(NonComarableClass.class);
@@ -63,10 +63,10 @@ CustomPriorityQueue<Integer> q = new CustomPriorityQueue<>(Integer.class);
 ### Unit Tests
 
 Project contains base unit test to check code works properly.
-Contains tests that check methods : add(); poll(); peek(); getSize(); getLength(); ClassCastException throwing;
+Contains tests that check methods : `add()` `poll()` `peek()` `getSize()` `getLength()` `ClassCastException `
 
 ### Attention here!
 
-Be careful: when initializing the queue you may get a ClassCastException: [described here](#exception-id)
+Be careful: when initializing the queue you may get a `ClassCastException`: [described here](#exception-id)
 
 ## Thanks for your visiting!
