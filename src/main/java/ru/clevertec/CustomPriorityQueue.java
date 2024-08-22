@@ -7,7 +7,7 @@ import java.util.Optional;
 public class CustomPriorityQueue<T> {
     private final Comparator<? super T> comparator;
 
-    private static final int DEFAULT_CAPACITY = 2;
+    private static final int DEFAULT_CAPACITY = 8;
 
     private T[] customQueue;
 
