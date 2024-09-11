@@ -9,12 +9,16 @@ public class CustomPriorityQueue<T> {
 
     private static final int DEFAULT_CAPACITY = 8;
 
-    private T[] customQueue;
+    private T[] queue;
 
     private int size = 0;
 
     public CustomPriorityQueue(Class<T> tClass) {
         this(tClass, null);
+    }
+
+    public CustomPriorityQueue() {
+        comparator = (Comparator<T>) Comparator.naturalOrder();
     }
 
     public CustomPriorityQueue(Class<T> classType, Comparator<? super T> comparator) {
@@ -24,17 +28,20 @@ public class CustomPriorityQueue<T> {
             throw new ClassCastException("No comparator or comparable provided");
         }
 
-        customQueue = (T[]) new Object[DEFAULT_CAPACITY];
+        queue = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     public void add(T obj) {
-        if (size == customQueue.length) {
+        if (size == queue.length) {
             enlargeCapacity();
         }
 
-        customQueue[size++] = obj;
-        siftUp(obj);
+        if (obj == null) {
+            return;
+        }
 
+        queue[size++] = obj;
+        siftUp(obj);
     }
 
     public T poll() {
@@ -42,23 +49,24 @@ public class CustomPriorityQueue<T> {
             return null;
         }
 
-        T top = customQueue[0];
-        customQueue[0] = customQueue[--size];
-        customQueue[size] = null;
+        T top = queue[0];
+        size -= 1;
+        queue[0] = queue[size];
+        queue[size] = null;
         siftDown();
         return top;
     }
 
     public T peek() {
-        return customQueue[0];
+        return queue[0];
     }
 
-    public int getSize(){
+    public int getSize() {
         return size;
     }
 
-    public int getLength(){
-        return customQueue.length;
+    public int getLength() {
+        return queue.length;
     }
 
     private void siftDown() {
@@ -68,9 +76,9 @@ public class CustomPriorityQueue<T> {
             int rightIndex = 2 * start + 2;
             int smaller = start;
 
-            if (leftIndex < size && compare(customQueue[leftIndex], customQueue[smaller]) < 0) {
+            if (leftIndex < size && compare(queue[leftIndex], queue[smaller]) < 0) {
                 smaller = leftIndex;
-            } else if (rightIndex < size && compare(customQueue[rightIndex], customQueue[smaller]) <= 0) {
+            } else if (rightIndex < size && compare(queue[rightIndex], queue[smaller]) <= 0) {
                 smaller = rightIndex;
             } else {
                 break;
@@ -87,31 +95,31 @@ public class CustomPriorityQueue<T> {
         int parentIndex = currentPosition / 2;
 
         while (parentIndex > 0) {
-            T parent = customQueue[parentIndex - 1];
+            T parent = queue[parentIndex - 1];
             if (compare(up, parent) >= 0) {
                 break;
             }
-            customQueue[currentPosition - 1] = parent;
+            queue[currentPosition - 1] = parent;
             currentPosition = parentIndex;
             parentIndex = currentPosition / 2;
         }
-        customQueue[currentPosition - 1] = up;
+        queue[currentPosition - 1] = up;
     }
 
     private int compare(T a, T b) {
-            return Optional.ofNullable(comparator)
-                    .map(c -> c.compare(a, b))
-                    .orElseGet(() -> ((Comparable<T>) a).compareTo(b));
+        return Optional.ofNullable(comparator)
+                .map(c -> c.compare(a, b))
+                .orElseGet(() -> ((Comparable<T>) a).compareTo(b));
     }
 
-    private void swap(int index1, int index2){
-        T temp = customQueue[index1];
-        customQueue[index1] = customQueue[index2];
-        customQueue[index2] = temp;
+    private void swap(int index1, int index2) {
+        T temp = queue[index1];
+        queue[index1] = queue[index2];
+        queue[index2] = temp;
     }
 
     private void enlargeCapacity() {
-        customQueue = Arrays.copyOf(customQueue, customQueue.length * 2);
+        queue = Arrays.copyOf(queue, queue.length * 2);
     }
 
 }
